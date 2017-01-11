@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block body %}
+  {% if session.logged_in %}
+    <form action="{{ url_for('add_entry') }}" method=post class=add-entry>
+      <dl>
+        <dt>Title:
+        <dd><input type=text size=30 name=title>
+        <dt>Description:
+        <dd><input type=text size=80 name=description>
+        <dt>Text:
+        <dd><textarea name=text rows=5 cols=40 class="ckeditor" name="editor1"></textarea>
+        <dd><input type=submit value=Share>
+      </dl>
+    </form>
+  {% endif %}
+  <ul class=entries>
+  {% for entry in entries %}
+    <li><h2>{{ entry.title }}</h2><b>{{ entry.description|safe }}</b>
+    <form action="{{ url_for('edit_entry') }}" method=post class=add-entry>
+    <input type=hidden name=id value={{entry.id|safe }}>
+    {% if session.logged_in %}
+    <input type=submit value=Edit>
+    {% else %}
+    <input type=submit value=View>
+    {% endif %}
+    </form>
+    <hr>
+  {% else %}
+    <li><em>The document store is currently empty.</em>
+  {% endfor %}
+  </ul>
+{% endblock %}

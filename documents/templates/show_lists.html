@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block body %}
+  {% if session.logged_in %}
+    <form action="{{ url_for('add_list') }}" method=post class=add-list>
+      <dl>
+        <dt>Name:
+        <dd><input type=text size=30 name=name>
+        <dt>Text:
+        <dd><textarea name=text rows=5 cols=40></textarea>
+        <dd><input type=submit value=Add>
+      </dl>
+    </form>
+  {% endif %}
+  <table class=list>
+  {% for entry in lists %}
+    <tr><td>{{ entry.name }}</td><td>{{ entry.descriptiom }}</td></tr>
+  {% else %}
+    <tr><td>Unbelievable.  No entries here so far</td></tr>
+  {% endfor %}
+  </table>
+{% endblock %}

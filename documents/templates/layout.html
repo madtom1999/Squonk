@@ -1,0 +1,17 @@
+<!doctype html>
+<title>Document Store</title>
+<script src="{{url_for('static', filename="./ckeditor43full/ckeditor.js")}}"></script>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+<div class=page>
+  <h1>Document Store</h1>
+  <div class=metanav> {% if not session.logged_in %}
+  <table border=0><tr><td><form  {display:inline;} method=POST action="{{url_for('search_entries') }}">Search for <input type=text size=30 name=searchstr><input type=submit value=search></form></td><td>
+    <a href="{{ url_for('login') }}">log in</a>
+  {% else %}
+    <a href="{{ url_for('logout') }}">log out</a>
+  {% endif %}</td></tr></table></div>
+  {% for message in get_flashed_messages() %}
+    <div class=flash>{{ message }}</div>
+  {% endfor %}
+  {% block body %}{% endblock %}
+</div>
